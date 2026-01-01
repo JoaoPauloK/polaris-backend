@@ -46,5 +46,4 @@ RUN \
   fi
 COPY --from=builder /app/dist ./dist
 EXPOSE 3000
-CMD ["npm", "start"]</content>
-<parameter name="filePath">/home/joaopaulo/polaris/Dockerfile.backend
+CMD ["npm", "start"]
