@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { projectService } from '../services/project.service.js';
 import { z } from 'zod';
+import type { CreateProjectData } from '../services/project.service.js';
 
 // Schemas de validação
 const createProjectSchema = z.object({
@@ -23,7 +24,7 @@ export class ProjectController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = (req as any).user.userId;
-      const validatedData = createProjectSchema.parse(req.body);
+      const validatedData = createProjectSchema.parse(req.body) as CreateProjectData;
 
       const project = await projectService.createProject(userId, validatedData);
 

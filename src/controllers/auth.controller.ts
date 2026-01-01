@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { authService } from '../services/auth.service.js';
 import { z } from 'zod';
+import type { RegisterData, LoginData } from '../services/auth.service.js';
 
 // Schemas de validação
 const registerSchema = z.object({
@@ -24,9 +25,9 @@ const updateProfileSchema = z.object({
 });
 
 export class AuthController {
-  async register(req: Request, res: Response, next: NextFunction) {
+  async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const validatedData = registerSchema.parse(req.body);
+      const validatedData = registerSchema.parse(req.body) as RegisterData;
       const result = await authService.register(validatedData);
 
       res.status(201).json({
@@ -36,19 +37,20 @@ export class AuthController {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: 'Validation error',
           errors: error.errors,
         });
+        return;
       }
       next(error);
     }
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {
+  async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const validatedData = loginSchema.parse(req.body);
+      const validatedData = loginSchema.parse(req.body) as LoginData;
       const result = await authService.login(validatedData);
 
       // Define cookie httpOnly com o token
@@ -70,11 +72,12 @@ export class AuthController {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: 'Validation error',
           errors: error.errors,
         });
+        return;
       }
       next(error);
     }

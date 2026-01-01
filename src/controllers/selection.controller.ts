@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { selectionService } from '../services/selection.service.js';
 import { z } from 'zod';
+import type { CreateSelectionData } from '../services/selection.service.js';
 
 // Schemas de validação
 const createSelectionSchema = z.object({
@@ -19,7 +20,7 @@ const updateStatusSchema = z.object({
 export class SelectionController {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const validatedData = createSelectionSchema.parse(req.body);
+      const validatedData = createSelectionSchema.parse(req.body) as CreateSelectionData;
       const selection = await selectionService.createSelection(validatedData);
 
       res.status(201).json({

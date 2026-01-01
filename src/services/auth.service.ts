@@ -23,10 +23,10 @@ export interface AuthResponse {
 }
 
 export class AuthService {
-  private readonly JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret';
-  private readonly JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
-  private readonly JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret';
-  private readonly JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '30d';
+  private readonly JWT_SECRET = (process.env.JWT_SECRET || 'fallback-secret') as string;
+  private readonly JWT_EXPIRES_IN = (process.env.JWT_EXPIRES_IN || '7d') as string;
+  private readonly JWT_REFRESH_SECRET = (process.env.JWT_REFRESH_SECRET || 'fallback-refresh-secret') as string;
+  private readonly JWT_REFRESH_EXPIRES_IN = (process.env.JWT_REFRESH_EXPIRES_IN || '30d') as string;
 
   async register(data: RegisterData): Promise<AuthResponse> {
     // Verificar se o email já existe
@@ -142,7 +142,7 @@ export class AuthService {
         email: user.email,
       },
       this.JWT_SECRET,
-      { expiresIn: this.JWT_EXPIRES_IN }
+      { expiresIn: this.JWT_EXPIRES_IN } as jwt.SignOptions
     );
   }
 
@@ -153,7 +153,7 @@ export class AuthService {
         email: user.email,
       },
       this.JWT_REFRESH_SECRET,
-      { expiresIn: this.JWT_REFRESH_EXPIRES_IN }
+      { expiresIn: this.JWT_REFRESH_EXPIRES_IN } as jwt.SignOptions
     );
   }
 
