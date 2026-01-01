@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1767201452058,
+      "tag": "0000_dark_paibok",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1767205358852,
+      "tag": "0001_tiresome_the_order",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "gallery_status" varchar(50) DEFAULT 'open' NOT NULL;
