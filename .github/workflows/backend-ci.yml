@@ -52,6 +52,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          target: dev
           push: false
           load: true
           tags: polaris-backend:${{ github.sha }}
