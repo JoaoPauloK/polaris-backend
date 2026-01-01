@@ -53,6 +53,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
+          load: true
           tags: polaris-backend:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
